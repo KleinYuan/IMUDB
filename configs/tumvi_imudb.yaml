@@ -1,0 +1,97 @@
+# 3 stages:
+#  1. poc: validate the idea
+#  2. dev: try to get good results
+#  3. paper: very organized experiments for good data for the paper
+#  4. prod: for production
+stage: 'dev'
+debug: false
+datasets_name: 'tumvi'
+model_name: 'imudb'
+experiment_name: 'tumvi_imudb'
+experiment_management_log: 'experiments/experiment_management_log.csv'
+logs_dir: "logs"
+note: "equivalent to LIME-BERT, only outdoor datasets, T_0=500"
+
+data:
+  shuffle:
+    train: true
+    val: true
+    test: true
+  batch_size: 1024
+
+  # where are raw data ?
+  data_dir: "/root/TUMVI/Raw"
+  # where record preloaded data ?
+  caches_dir: "/root/TUMVI/Preload"
+  # set train, val and test sequence
+  train_seqs: [
+      'dataset-outdoors1_512_16',
+      'dataset-outdoors3_512_16',
+      'dataset-outdoors5_512_16',
+      'dataset-outdoors7_512_16',
+      'dataset-outdoors8_512_16',
+  ]
+  val_seqs: [
+      'dataset-outdoors2_512_16',
+      'dataset-outdoors4_512_16',
+      'dataset-outdoors6_512_16',
+  ]
+  test_seqs: [
+      'dataset-outdoors2_512_16',
+      'dataset-outdoors4_512_16',
+      'dataset-outdoors6_512_16',
+  ]
+  mask:
+    mask_ratio: 0.15
+    mask_alpha: 6
+    max_gram: 10
+    mask_prob: 0.8
+    replace_prob: 0.0
+
+model:
+  inputs:
+    imu_sequence_number: 30 #120 # 200 Hz, namely, X /200 second
+  outputs:
+    imu_sequence_number: 30 #future IMU predict sequence number # This is not being used yet # 10 # 200 Hz, namely X /200 second
+  hyper_params:
+    starting_learning_rate: 0.001
+    denoise_loss_weights: 0 # 10
+    nsp_loss_weights: 0 #1
+    mlm_loss_weights: 1
+    T_0: 500
+    T_mult: 10
+    eta_min: 1e-8
+
+    nn_arch: 'limu_bert' # This is not used in the experiment. Just for reference
+    # Below are copied from https://github.com/dapowan/LIMU-BERT-Public/blob/master/config/limu_bert.json#L4-L9
+    feature_num: 6
+    hidden: 72
+    hidden_ff: 144
+    n_layers: 4
+    n_heads: 4
+    seq_len: 120
+    emb_norm: true
+  onnx:
+    inputs: ['x_imu']
+    outputs: ['hat_imu']
+
+
+sensors:
+  cam0:
+    frequency: 20 # hz
+    model: 'MT9V034'
+    info: 'global-shutter, monochrome' # This is purely to provide the info of the sensor
+  imu:
+    frequency: 200 # hz
+    model: 'BMI160'
+    info: 'MEMS based, intrinsic calibrated'
+  synhronization: 'hardware-synchronized'
+  ground_truth:
+    frequency: 20 # Hz
+    pose:
+      methods: 'vicon'
+      frequency: 100 # hz
+    position:
+      methods: 'Leica MS50'
+      frequency: 20 # hz
+      error_bound: 0.001 #m

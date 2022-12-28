@@ -1,0 +1,10 @@
+pytorch-lightning==1.4.2
+open3d==0.13.0
+opencv-contrib-python
+python-box
+fire
+# https://stackoverflow.com/questions/59794328/importing-rosbag-in-python-3
+# http://wiki.ros.org/rosbag/Cookbook
+pycryptodomex # this is for rosbag compatibility for python3
+python-gnupg # this is for rosbag compatibility for python3
+bagpy # this msg somehow helps resolve the sensor_msgs dep issue for ros_numpy. Magic, isn't it?

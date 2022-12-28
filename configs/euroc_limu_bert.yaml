@@ -1,0 +1,100 @@
+# 3 stages:
+#  1. poc: validate the idea
+#  2. dev: try to get good results
+#  3. paper: very organized experiments for good data for the paper
+#  4. prod: for production
+stage: 'dev'
+datasets_name: 'euroc_limu_bert'
+experiment_name: 'limu_bert' # ag means added noises with 0.001
+experiment_management_log: 'experiments/experiment_management_log.csv'
+logs_dir: "logs"
+note: "added denoise loss weight 0, save checkpoints over loss"
+
+data:
+  shuffle:
+    train: true
+    val: true
+    test: true
+  batch_size: 1024
+
+  # where are raw data ?
+  data_dir: "/root/EuRoC/Raw"
+  # where record preloaded data ?
+  caches_dir: "/root/EuRoC/Preload"
+  # set train, val and test sequence
+  train_seqs: [
+      'MH_01_easy',
+      'MH_05_difficult',
+      'V2_01_easy',
+      'V2_03_difficult',
+      'MH_03_medium',
+      'V1_02_medium',
+  ]
+  val_seqs: [
+      'MH_02_easy',
+      'MH_04_difficult',
+      'V2_02_medium',
+      'V1_03_difficult',
+      'V1_01_easy',
+  ]
+  test_seqs: [
+      'MH_02_easy',
+      'MH_04_difficult',
+      'V2_02_medium',
+      'V1_03_difficult',
+      'V1_01_easy',
+  ]
+  mask:
+    mask_ratio: 0.15
+    mask_alpha: 6
+    max_gram: 10
+    mask_prob: 0.8
+    replace_prob: 0.0
+
+model:
+  inputs:
+    imu_sequence_number: 30 #120 # 200 Hz, namely, X /200 second
+    #cam0_sequence_number: 3 #10 # 20 Hz, namely X/20 second
+    #cam0_resize_to: 128
+  outputs:
+    imu_sequence_number: 30 #120 # This is not being used yet # 10 # 200 Hz, namely X /200 second
+  hyper_params:
+    starting_learning_rate: 0.001
+    denoise_loss_weights: 0
+    T_0: 5000
+    T_mult: 10
+    eta_min: 1e-8
+
+    nn_arch: 'limu_bert' # This is not used in the experiment. Just for reference
+    # Below are copied from https://github.com/dapowan/LIMU-BERT-Public/blob/master/config/limu_bert.json#L4-L9
+    feature_num: 6
+    hidden: 72
+    hidden_ff: 144
+    n_layers: 4
+    n_heads: 4
+    seq_len: 120
+    emb_norm: true
+  onnx:
+    inputs: ['x_imu']
+    outputs: ['hat_imu']
+
+
+sensors:
+  cam0:
+    frequency: 20 # hz
+    model: 'MT9V034'
+    info: 'global-shutter, monochrome' # This is purely to provide the info of the sensor
+  imu:
+    frequency: 200 # hz
+    model: 'ADIS16448'
+    info: 'MEMS based, intrinsic calibrated'
+  synhronization: 'hardware-synchronized'
+  ground_truth:
+    frequency: 20 # Hz
+    pose:
+      methods: 'vicon'
+      frequency: 100 # hz
+    position:
+      methods: 'Leica MS50'
+      frequency: 20 # hz
+      error_bound: 0.001 #m
