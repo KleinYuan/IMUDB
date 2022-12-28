@@ -249,7 +249,7 @@ EuRoC/TUM-VI from https://projects.asl.ethz.ch/datasets/doku.php?id=kmavvisualin
 Second, install [Open-VINS](https://github.com/rpng/open_vins/) and try to run the baseline:
 
 - Step1: install the open vins on your machine, following [this tutorial](https://docs.openvins.com/gs-installing.html)
-- Step2: edit the [pgeneva_serial_eth.launch](https://github.com/rpng/open_vins/blob/master/ov_msckf/launch/pgeneva_ros_eth.launch) located in the open_vins folder
+- Step2: edit the [pgeneva_serial_eth.launch](https://github.com/rpng/open_vins/tree/develop_v2.4/ov_msckf/launch) located in the open_vins folder
 to update `bag` field with your actual bag path. This is being said that you may need to download the bags, via `bash tools/download_euro_test_bags.sh` 
 (you may need to update where you store the bags).
 - Step3: `source devel/setup.bash`
