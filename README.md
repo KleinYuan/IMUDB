@@ -255,7 +255,7 @@ to update `bag` field with your actual bag path. This is being said that you may
 - Step3: `source devel/setup.bash`
 - Step4: `roslaunch ov_msckf pgeneva_serial_eth.launch` will let launch the benchmark and you can visualize it with the [rviz](euroc.rviz)
 
-I added a copy of the [pgeneva_serial_eth.launch](./ros_packages_configs_bk/pgeneva_serial_eth.launch) I used in case you missed it.
+I added a copy of the [pgeneva_serial_eth.launch](./ros_packages_configs/pgeneva_serial_eth.launch) I used in case you missed it.
 
 Please be noted that the above happens at the host machine instead of the docker container. And below should happen inside
 the container.
