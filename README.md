@@ -1,8 +1,7 @@
 # IMUDB
 
 Here's the official implementation of the accepted RA-L paper: 
-K. Yuan and Z. J. Wang, "A Simple Self-Supervised IMU Denoising Method For Inertial Aided Navigation," in IEEE Robotics and Automation Letters, 2023.
-
+[K. Yuan and Z. J. Wang, "A Simple Self-Supervised IMU Denoising Method For Inertial Aided Navigation," in IEEE Robotics and Automation Letters, doi: 10.1109/LRA.2023.3234778.](https://ieeexplore.ieee.org/document/10008040)
 
 ## Project Walk-Thru
 
@@ -337,16 +336,18 @@ in this repo has been cleaned when port the native pytorch to pytorch-lightning 
 
 ## Citation
 
-Just accepted and the details is coming soon ... and for now, you can use the following:
+Below will be updated while the paper is officially published:
 
 ```
-@article{yuan2023simple,
-  title={A Simple Self-Supervised IMU Denoising Method For Inertial Aided Navigation},
-  author={Yuan, Kaiwen and Wang, Z Jane},
-  journal={IEEE Robotics and Automation Letters},
-  year={2023},
-  publisher={IEEE}
-}
+@ARTICLE{10008040,  
+author={Yuan, Kaiwen and Wang, Z. Jane},  
+journal={IEEE Robotics and Automation Letters},   
+title={A Simple Self-Supervised IMU Denoising Method For Inertial Aided Navigation},   
+year={2023},  
+volume={},  
+number={},  
+pages={1-7},  
+doi={10.1109/LRA.2023.3234778}}
 ```
 
 ## Clarification
