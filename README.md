@@ -354,7 +354,6 @@ in this repo has been cleaned when port the native pytorch to pytorch-lightning 
 ## Clarification
 
 This repo is a largely refactored open-source version based on my internal experimental repository (which is really messy) for my publications.
-If you see potential issues/bugs or have questions regarding my works, please feel free to email me 
-([kaiwen@ece.ubc.ca](kaiwen@ece.ubc.ca)).
+If you see potential issues/bugs or have questions regarding my works, please feel free to email me (kaiwen dot yuan1992 at gmail dot com). As I graduated, UBC widthdrew my school email kaiwen@ece.ubc.ca, which is not valid any more.
 
 If you are interested in collaborations with me on related topics, don't hesitate to reach out to me :)
